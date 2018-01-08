@@ -1,0 +1,109 @@
+from django.shortcuts import render
+
+# Create your views here.
+
+from django.http import HttpResponse
+from django.http import JsonResponse
+import requests ;
+import json ;
+from pprint import pprint ;
+
+from datetime import datetime
+from operator import itemgetter
+
+def index(request):
+    ###########z = requests.get('http://ec2-35-182-73-26.ca-central-1.compute.amazonaws.com:18381/api/v1/courses?limit=400', auth=('username', 'password')) ;
+    ###########z = requests.get('http://ec2-52-60-175-178.ca-central-1.compute.amazonaws.com:18381/api/v1/courses?limit=400', auth=('username', 'password')) ;
+    z = requests.get('http://ec2-52-60-175-178.ca-central-1.compute.amazonaws.com:18381/api/v1/courses?limit=400', auth=('username', 'password')) ;
+    #w = requests.get('http://ec2-52-60-175-178.ca-central-1.compute.amazonaws.com:18381/api/v1/course_runs/?q=ORG:Polymtl', auth=('username', 'password')) ;
+    json_data  = z.json()
+    #json_data2 = w.json()
+    json_pretty  = json.dumps(json_data,  sort_keys=True, indent=4)
+    #json_pretty2 = json.dumps(json_data2, sort_keys=True, indent=4)
+    #
+    # adding filtering
+    #
+    toto  = json_data
+    #toto3 = json_data2
+    print (toto.get('count'))
+    print (datetime.now().isoformat())
+    current = datetime.now().isoformat()
+    #print (toto3.get('count'))
+
+    toto2 = toto.get('results')
+    #toto4 = toto3.get('results')
+
+    #for course in toto2:
+    #   if course['key'] == "UMontreal+TekPhy.1":
+    #      print(course['key'])
+
+    #for course in toto2:
+    #   if course['owners']:
+    #      y = course['owners']
+    #      #print(y)
+    #      #if "UMontreal" in y[0]['key']:
+    #      #if "HEC" in y[0]['key']:
+    #      if "Sherbroo" in y[0]['key']:
+    #         print(course['title'])
+
+    #for course in toto2:
+    #    if course['course_runs']:
+    #       y = course['course_runs']
+    #       if y[0]['end'] > current:
+    #          print(course['key'])
+    #          print(y[0]['end'])
+
+    mylist = []
+    for course in toto2:
+       if course['course_runs']:
+          y = course['course_runs']
+          if y[0]['end'] > current:
+             mylist.append(y)
+
+    #index_time = mylist[1]
+    #print (index_time)
+
+    #mylist2 = sorted(mylist, key=lambda x: (x.end is None, x.end), reverse=True)
+    #mylist2 = sorted(mylist, key=lambda x: (x[0].end is None, x[0].end), reverse=True)
+    mylist2 = mylist
+
+    #print (mylist2)
+
+
+    mylist3 = []
+    long = len(mylist2)
+    print(long)
+    i = 0
+    while i < long:
+       y = mylist2[i]
+       #print(y[0]['end'])
+       #print(y[0])
+       #print('')
+       mylist3.append(y[0])
+       i = i + 1 
+
+    # de la fin la plus tard a la plus tot
+    #mylist3_by_end = sorted(mylist3, key=itemgetter('end'), reverse=True)
+
+    # de la fin la plus tot a la plus tard
+    mylist3_by_end = sorted(mylist3, key=itemgetter('end'), reverse=False)
+
+    print('')
+    print('')
+    long = len(mylist3_by_end)
+    i = 0
+    while i < long:
+       y = mylist3_by_end[i]
+       print(y['key'])
+       print(y['end'])
+       i = i + 1 
+       print ('')
+
+    #print(mylist3_by_end)
+
+    #for course in toto4:
+    #   if course['availability'] == "Upcoming":
+    #      print(course['key'])
+
+    return HttpResponse(json_pretty, content_type="application/json")
+    #return HttpResponse(json_pretty2,content_type="application/json")

@@ -1,0 +1,53 @@
+{% if cours_non_finis %}
+    <h1>Cours {{ cours_non_finis.3 }}</h1>
+    <ul>
+
+
+    {% if cours_non_finis.0 %}
+          <h2>A venir</h2>
+    {% endif %}
+
+    {% for cours in cours_non_finis.0 %}
+       {% if cours.availability == "Upcoming" %}
+          {% if not cours.hidden %}
+             <a href="https://test-cours.edulib.org/courses/{{ cours.key }}/about">{{ cours.title }}<br>
+             <img alt="IMAGE NON DISPONIBLE" src="{{ cours.image.src }}" width="200" height="200"><br>
+             </a>
+          {%endif%}
+       {%endif%}
+    {% endfor %}
+
+
+
+    {% if cours_non_finis.1 %}
+          <h2>En cours</h2>
+    {% endif %}
+
+    {% for cours in cours_non_finis.1 %}
+       {% if cours.availability == "Current" %}
+          {% if not cours.hidden %}
+             <a href="https://test-cours.edulib.org/courses/{{ cours.key }}/about">{{ cours.title }}<br>
+             <img alt="IMAGE NON DISPONIBLE" src="{{ cours.image.src }}" width="200" height="200"><br>
+             </a>
+          {%endif%}
+       {%endif%}
+    {% endfor %}
+
+
+
+
+    {% if cours_non_finis.1 %}
+          <h2>Fini</h2>
+    {% endif %}
+
+    {% for cours in cours_non_finis.2 %}
+       {% if cours.availability == "Archived" %}
+          <a href="https://test-cours.edulib.org/courses/{{ cours.key }}/about">{{ cours.title }}<br>
+          <img alt="IMAGE NON DISPONIBLE" src="{{ cours.image.src }}" width="200" height="200"><br>
+          </a>
+       {%endif%}
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Pas de cours non finis.</p>
+{% endif %}

@@ -1,0 +1,94 @@
+body {
+    background-color: white;
+}
+
+h1 {
+    color: blue;
+    text-align: center;
+}
+
+h2 {
+    text-align: center;
+}
+
+p {
+    color: black;
+}
+
+a:link {
+    color: green; 
+    background-color: transparent; 
+    text-decoration: none;
+}
+
+a:visited {
+    color: purple;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+a:hover {
+    color: red;
+    background-color: transparent;
+    text-decoration: underline;
+}
+
+a:active {
+    color: yellow;
+    background-color: transparent;
+    text-decoration: underline;
+}
+
+.boxed {
+  border: 1px solid green ;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 400px 400px 400px ;
+  background-color: white;
+  grid-gap: 25px;
+  justify-content: space-evenly
+}
+
+.container-menu {
+  display: grid;
+  grid-template-columns: 500px 500px 500px ;
+  background-color: lightgrey;
+  grid-gap: 25px;
+  justify-content: space-evenly
+}
+
+.box {
+  background-color: #444;
+  color: #fff;
+  border-radius: 5px;
+  padding: 20px;
+  font-size: 150%;
+}
+
+.course {
+    background-color: lightgrey;
+    width: 400px;
+    border: 05px solid blue;
+    padding: 25px;
+    margin: 25px;
+}
+
+.institution {
+    background-color: lightgrey;
+    width: 400px;
+    border: 05px solid blue;
+    padding: 10px;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}

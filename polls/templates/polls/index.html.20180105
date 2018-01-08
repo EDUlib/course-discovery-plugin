@@ -1,0 +1,22 @@
+{% load static %}
+  
+<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}" />
+
+{% if cours_non_finis %}
+    <h1>Cours disponibles sur EDUlib</h1>
+    <ul>
+
+    <div class="container">
+    {% for cours in cours_non_finis %}
+        <div class="course">
+        <img alt="IMAGE NON DISPONIBLE" src="{{ cours.image.src }}" width="280" height="160"><br>
+        <a href="https://test-cours.edulib.org/courses/{{ cours.key }}/about">{{ cours.title}}<br>
+        <strong>Commence le {{ cours.start_affiche }}</strong>
+        </a>
+        </div>
+    {% endfor %}
+    </div>
+    </ul>
+{% else %}
+    <p>Pas de cours disponibles sur EDUlib</p>
+{% endif %}
