@@ -1,0 +1,45 @@
+{% load static %}
+  
+<link rel="stylesheet" type="text/css" href="{% static 'catalog/style.css' %}" />
+
+{% if cours_non_finis %}
+    <h1>Cours disponibles sur EDUlib</h1>
+    <ul>
+
+    <div class="container">
+    {% for cours in cours_non_finis %}
+        <div class="course">
+        <a href="https://test-cours.edulib.org/courses/{{ cours.key }}/about">{{ cours.title }}<br>
+        <img alt="IMAGE NON DISPONIBLE" src="{{ cours.image.src }}" width="280" height="160"><br>
+        <strong>Commence le {{ cours.start_affiche }}</strong>
+        </a>
+        </div>
+    {% endfor %}
+    </div>
+    </ul>
+
+    <h1>Cours par institution</h1>
+    <ul>
+
+    <div class="container">
+    <div class="course">
+         <a href="http://127.0.0.1:8005/catalog/umontreal">
+         <img src="{% static "catalog/umontreal.png" %}" alt="Universit&eacute; de Montr&eacute;al" width="400" height="200" /><br>
+         </a>
+    </div>
+    <div class="course">
+         <a href="http://127.0.0.1:8005/catalog/hec">
+         <img src="{% static "catalog/hec.png" %}" alt="HEC Montr&eacute;al" width="400" height="200" /><br>
+         </a>
+    </div>
+    <div class="course">
+         <a href="http://127.0.0.1:8005/catalog/polymtl">
+         <img src="{% static "catalog/polymtl.png" %}" alt="Polytechnique Montr&eacute;al" width="400" height="200" /><br>
+         </a>
+    </div>
+    </div>
+
+    </ul>
+{% else %}
+    <p>Pas de cours disponibles sur EDUlib</p>
+{% endif %}

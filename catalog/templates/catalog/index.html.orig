@@ -1,0 +1,11 @@
+{% if cours_non_finis %}
+    <ul>
+    {% for cours in cours_non_finis %}
+        <a href="https://test-cours.edulib.org/courses/{{ cours.key }}/about">{{ cours.title}}<br>
+        <img alt="IMAGE NON DISPONIBLE" src="{{ cours.image.src }}" width="200" height="200"><br>
+        </a>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Pas de cours non finis.</p>
+{% endif %}
