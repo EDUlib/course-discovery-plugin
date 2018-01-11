@@ -14,10 +14,12 @@ import os
 
 ##### DO NOT KEEP IN GITHUB #####
 EDULIB_USER = "CHANGE ME"
-EDULIB_PWD  = "CHANGE ME" 
+EDULIB_PWD  = "CHANGE ME"
 EDULIB_DISCO = "CHANGE ME"
-EDULIB_LMS   = "CHANGE ME"  ##### Future Use
+EDULIB_LMS   = "CHANGE ME" 
+EDULIB_CATALOG = "CHANGE ME"
 ##### DO NOT KEEP IN GITHUB #####
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

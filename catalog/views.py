@@ -226,7 +226,7 @@ def index(request):
 
 
     ##### setup global context
-    context = {'cours_non_finis': mylist3_by_end, 'edulib_lms': settings.EDULIB_LMS}
+    context = {'cours_non_finis': mylist3_by_end, 'edulib_lms': settings.EDULIB_LMS, 'edulib_catalog': settings.EDULIB_CATALOG}
 
 
     ##### rendering page (can catalog/index.html be a settings?)
