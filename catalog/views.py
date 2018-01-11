@@ -5,8 +5,10 @@ from django.conf import settings
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import JsonResponse
+
 import requests ;
 import json ;
+
 from pprint import pprint ;
 
 from datetime import datetime ;
@@ -15,10 +17,10 @@ from django.template import loader ;
 
 import timestring ;
 import dateutil.parser;
-
 import time;
 import locale;
 
+##### this could be set in the settings?
 locale.setlocale(locale.LC_ALL, 'fr_CA')
 
 
@@ -26,11 +28,11 @@ locale.setlocale(locale.LC_ALL, 'fr_CA')
 
 def institution(request, school):
 
-    #####print school
-    #####print school.lower()
+    ##### translating school to all lower case
     school = school.lower()
 
-    ##### institution en minuscule, je ramene dans le nom dans Course Discovery #####
+
+    ##### depending on school, switching to real name used in Course Discovery
     if school == 'polymtl':
        school = 'PolyMtl'
     elif school == 'umontreal':
@@ -40,87 +42,78 @@ def institution(request, school):
     else:
        school = 'unknown'
 
-    #####print school
 
-    ##### obtenir la liste des cours de Course Discovery
-    w = requests.get('http://ec2-52-60-175-178.ca-central-1.compute.amazonaws.com:18381/api/v1/courses?limit=400', auth=(settings.EDULIB_USER, settings.EDULIB_PWD)) ;
+    ##### get courses from course discovery
+    all_courses = requests.get(settings.EDULIB_DISCO, auth=(settings.EDULIB_USER, settings.EDULIB_PWD)) ;
 
-    ##### traiter le tout comme une structure JSON
-    json_data  = w.json()
 
-    ##### pretty print de la structure JSON
+    ##### transforming all courses in a single JSON structure
+    json_data  = all_courses.json()
+
+
+    ##### pretty print of all courses
     json_pretty_poly  = json.dumps(json_data,  sort_keys=True, indent=4)
 
-    ##### obtenir l'entree "results" de la structure JSON
-    toto  = json_data
-    toto2 = toto.get('results')
 
-    ##### obtenir la date courante en format ISO
+    ##### getting "results" record
+    results = json_data.get('results')
+
+
+    ##### getting current date in ISO format
     current = datetime.now().isoformat()
 
-    ##### obtenir la liste des course_runs dans l'entree "results"
+
+    ##### getting list of courses in "results"
     mylist = []
-    for course in toto2:
+    for course in results:
        if course['course_runs']:
-          y = course['course_runs']
           mylist.append(course)
 
-    ##### filtrer les course_runs pour lequel le owner est l'institution demandee
+    ##### filtering course_runs based on specific school
     mylist2 = []
     for course in mylist:
        if course['owners']:
-          y = course['owners']
-          z = course['course_runs']
-          #####print (z[0]['end'])
-          #####print (y)
-          #####print (y[0]['key'])
-          #####print (school)
-          if school in y[0]['key']:
-             if z[0]['end']:
-                yourdate_end = dateutil.parser.parse(z[0]['end'])
-                z[0]['end_affiche'] = yourdate_end.strftime("%d %B %Y")
-             if z[0]['start']:
-                yourdate_start = dateutil.parser.parse(z[0]['start'])
-                z[0]['start_affiche'] = yourdate_start.strftime("%d %B %Y")
+          owners = course['owners']
+          course_run = course['course_runs']
+          if school in owners[0]['key']:
+             if course_run[0]['end']:
+                yourdate_end = dateutil.parser.parse(course_run[0]['end'])
+                course_run[0]['end_affiche'] = yourdate_end.strftime("%d %B %Y")
+             if course_run[0]['start']:
+                yourdate_start = dateutil.parser.parse(course_run[0]['start'])
+                course_run[0]['start_affiche'] = yourdate_start.strftime("%d %B %Y")
              mylist2.append(course)
 
 
-    ##### calcul du nombre de cours pour l'institution demandee
-    #####long = len(mylist2)
-    #####print "Nombre de cours HEC : %d" % long
-    #####print ('')
-    ##### number of courses is ok #####
-
-    ##### extracting course runs  #####
+    ##### extracting course runs
     mylist3 = []
     for course in mylist2:
        if course['course_runs']:
-          y = course['course_runs']
-          mylist3.append(y)
+          course_run  = course['course_runs']
+          mylist3.append(course_run)
 
-    ##### calcul du nombre de cours
+
+    ##### calculating number of course runs
     long3 = len(mylist3)
-    #print "Nombre de cours HEC : %d" % long3
-    #print ('')
-    ##### number of courses is ok #####
 
-    ##### extracting first element of all courses #####
+
+    ##### extracting first element of all courses
     mylist4 = []
     i = 0
     while i < long3:
        y = mylist3[i][0]
-       #print y
-       #print('')
        mylist4.append(y)
        i = i + 1
 
-    ##### besoin contexte contenant 3 arrays: upcoming, current, done #####
+
+    #####  3 arrays for upcoming, current, done courses
     upcoming = []
     current  = []
     done     = []
     liste_totale = []
 
-    ##### popule les 3 arrays selon les bons criteres #####
+
+    ##### populate all 3 arrays based on criteria
     for cours in mylist4:
         if cours['availability'] == "Upcoming" and not cours['hidden']:
            upcoming.append(cours)
@@ -129,23 +122,20 @@ def institution(request, school):
         elif cours['availability'] == "Archived":
              done.append(cours)
 
-    ##### tri les 3 arrays selons les criteres EDUlib #####
+
+    ##### sort arrays based on EDUlib chosen order
     upcoming_by_start = sorted(upcoming, key=itemgetter('start'), reverse=True)
     current_by_start  = sorted(current, key=itemgetter('start'), reverse=True)
     done_by_start     = sorted(done, key=itemgetter('end'), reverse=True)
 
-    ##### calcule la taille de chaque array #####
-    #upcoming_len = len(upcoming)
-    #current_len  = len(current)
-    #done_len     = len(done)
-    #print upcoming_len, current_len, done_len
 
-    ##### ajouter les 3 arrays dans le contexte global #####
+    ##### add all 3 arrays to global context
     liste_totale.append(upcoming_by_start)
     liste_totale.append(current_by_start)
     liste_totale.append(done_by_start)
 
-    ##### ajouter le nom de l'institution courante
+
+    ##### add school to global context
     ecole = ""
     if school is 'PolyMtl':
        ecole = "Polytechnique"
@@ -155,117 +145,89 @@ def institution(request, school):
        ecole = "Hautes Etudes Commerciales"
     liste_totale.append(ecole)
 
-    ##### calcule la taille du contexte global  #####
-    #totale_len = len(liste_totale)
-    #print totale_len
-    #print liste_totale
 
-    ##### initialise le contexte global #####
+    ##### initialize global context
     context = {'cours_non_finis': liste_totale}
 
-    ##### je ramene le nom selon les templates #####
+
+    ##### setting up template name
     if school is 'PolyMtl':
        school = "polymtl"
     elif school is 'UMontreal':
        school = "umontreal"
     elif school is 'HEC':
        school = "hec"
-
     template = 'catalog/' + school + '.html'
-    #####print template
 
-    ##### affichage du contexte via le template de l'institution #####
+
+    ##### affichage du contexte via le template de l'institution
     return render(request, template, context)
-    #return HttpResponse(json_pretty_poly, content_type="application/json")
-    #return HttpResponse("DO I GET HERE")
 
 
 
 
 
 def index(request):
-    ###########z = requests.get('http://ec2-35-182-73-26.ca-central-1.compute.amazonaws.com:18381/api/v1/courses?limit=400', auth=('bigboss', 'Bar07Har')) ;
-    ###########z = requests.get('http://ec2-52-60-175-178.ca-central-1.compute.amazonaws.com:18381/api/v1/courses?limit=400', auth=('bigboss', 'Bar07Har')) ;
-    z = requests.get('http://ec2-52-60-175-178.ca-central-1.compute.amazonaws.com:18381/api/v1/courses?limit=400', auth=('bigboss', 'Bar07Har')) ;
-    #w = requests.get('http://ec2-52-60-175-178.ca-central-1.compute.amazonaws.com:18381/api/v1/course_runs/?q=ORG:Polymtl', auth=('bigboss', 'Bar07Har')) ;
-    json_data  = z.json()
-    #json_data2 = w.json()
-    json_pretty  = json.dumps(json_data,  sort_keys=True, indent=4)
-    #json_pretty2 = json.dumps(json_data2, sort_keys=True, indent=4)
-    #
-    # adding filtering
-    #
-    toto  = json_data
-    #####print "Nombre de cours chez EDUlib : %d" % toto.get('count')
-    #####print ('')
+
+    ##### get courses from course discovery
+    all_courses = requests.get(settings.EDULIB_DISCO, auth=(settings.EDULIB_USER, settings.EDULIB_PWD)) ;
+
+
+    ##### transforming all courses in a single JSON structure
+    json_data  = all_courses.json()
+
+
+    ##### pretty print of all courses
+    json_pretty_poly  = json.dumps(json_data,  sort_keys=True, indent=4)
+
+
+    ##### getting "results" record
+    results = json_data.get('results')
+
+
+    ##### getting current date in ISO format
     current = datetime.now().isoformat()
-    #####print ("Date actuelle")
-    #####print (current)
-    ####print ('')
-
-    toto2 = toto.get('results')
 
 
-    #for course in toto2:
-    #   if course['owners']:
-    #      y = course['owners']
-    #      #print(y)
-    #      #if "UMontreal" in y[0]['key']:
-    #      #if "HEC" in y[0]['key']:
-    #      if "Sherbroo" in y[0]['key']:
-    #         print(course['title'])
-
+    ##### extracting courses from course_runs and sorting according to course state
     mylist = []
-    for course in toto2:
+    for course in results:
        if course['course_runs']:
-          y = course['course_runs']
-          if y[0]['start']:
-             if y[0]['end']:
-                if ((y[0]['start'] < current and y[0]['end'] > current) or (y[0]['start'] > current)) and (y[0]['availability'] == "Current" or y[0]['availability'] == "Upcoming"):
-                    mylist.append(y)
+          course_run = course['course_runs']
+          if course_run[0]['start']:
+             if course_run[0]['end']:
+                if ((course_run[0]['start'] < current and course_run[0]['end'] > current) or (course_run[0]['start'] > current)) and (course_run[0]['availability'] == "Current" or course_run[0]['availability'] == "Upcoming"):
+                    mylist.append(course_run)
              else:
-                if (y[0]['start'] > current) and (y[0]['availability'] == "Current" or y[0]['availability'] == "Upcoming"):
-                   mylist.append(y)
+                if (course_run[0]['start'] > current) and (course_run[0]['availability'] == "Current" or course_run[0]['availability'] == "Upcoming"):
+                   mylist.append(course_run)
           
 
+    ##### converting ISO date in format more suitable for displaying the date
+    ##### adding 2 new fields: start_affiche and end_affiche to current course_run
     mylist2 = mylist
-
     mylist3 = []
     long = len(mylist2)
-    #####print ("Nombre de cours non termines : %d" % long)
-    #####print ('')
     i = 0
     while i < long:
-       y = mylist2[i]
-       #print(y[0]['end'])
-       #print(y[0])
-       #print('')
-
-       if y[0]['end']:
-          yourdate_end = dateutil.parser.parse(y[0]['end'])
-          y[0]['end_affiche'] = yourdate_end.strftime("%d %B %Y")
-       if y[0]['start']:
-          yourdate_start = dateutil.parser.parse(y[0]['start'])
-          y[0]['start_affiche'] = yourdate_start.strftime("%d %B %Y")
-
-       mylist3.append(y[0])
+       course_run = mylist2[i]
+       if course_run[0]['end']:
+          yourdate_end = dateutil.parser.parse(course_run[0]['end'])
+          course_run[0]['end_affiche'] = yourdate_end.strftime("%d %B %Y")
+       if course_run[0]['start']:
+          yourdate_start = dateutil.parser.parse(course_run[0]['start'])
+          course_run[0]['start_affiche'] = yourdate_start.strftime("%d %B %Y")
+       mylist3.append(course_run[0])
        i = i + 1 
 
-    # du debut le plus tard au plus tot
+
+    ##### sorting according to EDUlib sort order 
     mylist3_by_end = sorted(mylist3, key=itemgetter('start'), reverse=True)
-    #mylist3_by_end = sorted(mylist3, key=itemgetter('end'), reverse=False)
 
-    long = len(mylist3_by_end)
-    #####print ("Liste des cours non termines : ")
-    i = 0
-    while i < long:
-       y = mylist3_by_end[i]
-       #####print(y['key'])
-       #####print(y['end'])
-       i = i + 1 
-       #####print ('')
 
+    ##### setup global context
     context = {'cours_non_finis': mylist3_by_end}
 
+
+    ##### rendering page (can catalog/index.html be a settings?)
     return render(request, 'catalog/index.html', context)
-    #return HttpResponse(json_pretty, content_type="application/json")
