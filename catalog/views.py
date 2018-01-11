@@ -147,7 +147,7 @@ def institution(request, school):
 
 
     ##### initialize global context
-    context = {'cours_non_finis': liste_totale}
+    context = {'cours_non_finis': liste_totale, 'edulib_lms': settings.EDULIB_LMS}
 
 
     ##### setting up template name
@@ -226,7 +226,7 @@ def index(request):
 
 
     ##### setup global context
-    context = {'cours_non_finis': mylist3_by_end}
+    context = {'cours_non_finis': mylist3_by_end, 'edulib_lms': settings.EDULIB_LMS}
 
 
     ##### rendering page (can catalog/index.html be a settings?)

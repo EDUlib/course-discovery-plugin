@@ -9,7 +9,7 @@
     <div class="container">
     {% for cours in cours_non_finis %}
         <div class="course">
-        <a href="https://test-cours.edulib.org/courses/{{ cours.key }}/about">{{ cours.title }}<br>
+        <a href="{{ edulib_lms }}/courses/{{ cours.key }}/about">{{ cours.title }}<br>
         <img alt="IMAGE NON DISPONIBLE" src="{{ cours.image.src }}" width="280" height="160"><br>
         <strong>Commence le {{ cours.start_affiche }}</strong>
         </a>

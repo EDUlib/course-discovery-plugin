@@ -1,5 +1,7 @@
 {% load static %}
 
+<% from django.conf import settings %>
+
 <link rel="stylesheet" type="text/css" href="{% static 'catalog/style.css' %}" />
 
 {% if cours_non_finis %}
@@ -24,7 +26,7 @@
        {% if cours.availability == "Upcoming" %}
           {% if not cours.hidden %}
              <div class="course">
-             <a href="https://test-cours.edulib.org/courses/{{ cours.key }}/about">{{ cours.title }}<br>
+             <a href="{{ edulib_lms }}/courses/{{ cours.key }}/about">{{ cours.title }}<br>
              <img alt="IMAGE NON DISPONIBLE" src="{{ cours.image.src }}" width="280" height="160"><br>
              <strong>Commence le {{ cours.start_affiche }}</strong>
              </a>
@@ -45,7 +47,7 @@
        {% if cours.availability == "Current" %}
           {% if not cours.hidden %}
              <div class="course">
-             <a href="https://test-cours.edulib.org/courses/{{ cours.key }}/about">{{ cours.title }}<br>
+             <a href="{{ edulib_lms }}/courses/{{ cours.key }}/about">{{ cours.title }}<br>
              <img alt="IMAGE NON DISPONIBLE" src="{{ cours.image.src }}" width="280" height="160"><br>
              <strong>A commenc&eacute; le {{ cours.start_affiche }} </strong>
              </a>
@@ -66,7 +68,7 @@
     {% for cours in cours_non_finis.2 %}
        {% if cours.availability == "Archived" %}
           <div class="course">
-          <a href="https://test-cours.edulib.org/courses/{{ cours.key }}/about">{{ cours.title }}<br>
+          <a href="{{ edulib_lms }}/{{ cours.key }}/about">{{ cours.title }}<br>
           <img alt="IMAGE NON DISPONIBLE" src="{{ cours.image.src }}" width="280" height="160"><br>
           <strong>Termin&eacute; depuis le {{ cours.end_affiche }} </strong>
           </a>
