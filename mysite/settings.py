@@ -12,8 +12,12 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 
-EDULIB_USER = "NEED A USER"
-EDULIB_PWD  = "NEED A PASSWORD" 
+##### DO NOT KEEP IN GITHUB #####
+EDULIB_USER = "CHANGE ME"
+EDULIB_PWD  = "CHANGE ME" 
+EDULIB_DISCO = "CHANGE ME"
+EDULIB_LMS   = "CHANGE ME"  ##### Future Use
+##### DO NOT KEEP IN GITHUB #####
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
