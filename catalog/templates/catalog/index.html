@@ -22,21 +22,13 @@
     <ul>
 
     <div class="container">
-    <div class="course">
-         <a href="{{ edulib_catalog }}/umontreal">
-         <img src="{% static "catalog/umontreal.png" %}" alt="Universit&eacute; de Montr&eacute;al" width="400" height="200" /><br>
-         </a>
-    </div>
-    <div class="course">
-         <a href="{{ edulib_catalog }}/hec">
-         <img src="{% static "catalog/hec.png" %}" alt="HEC Montr&eacute;al" width="400" height="200" /><br>
-         </a>
-    </div>
-    <div class="course">
-         <a href="{{ edulib_catalog }}/polymtl">
-         <img src="{% static "catalog/polymtl.png" %}" alt="Polytechnique Montr&eacute;al" width="400" height="200" /><br>
-         </a>
-    </div>
+    {% for ecole in all_ecoles %}
+       <div class="course">
+            <a href="{{ edulib_catalog }}/{{ ecole.nom_court }}">
+            <img src="{% get_static_prefix %}/{{ ecole.logo }}" alt="{{ ecole.nom_long }}" width="400" height="200" /><br>
+            </a>
+       </div>
+    {% endfor %}
     </div>
 
     </ul>

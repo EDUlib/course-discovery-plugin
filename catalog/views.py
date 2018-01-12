@@ -20,6 +20,8 @@ import dateutil.parser;
 import time;
 import locale;
 
+from .models import Ecoles
+
 ##### this could be set in the settings?
 locale.setlocale(locale.LC_ALL, 'fr_CA')
 
@@ -226,7 +228,8 @@ def index(request):
 
 
     ##### setup global context
-    context = {'cours_non_finis': mylist3_by_end, 'edulib_lms': settings.EDULIB_LMS, 'edulib_catalog': settings.EDULIB_CATALOG}
+    all_ecoles = Ecoles.objects.all()
+    context = {'cours_non_finis': mylist3_by_end, 'edulib_lms': settings.EDULIB_LMS, 'edulib_catalog': settings.EDULIB_CATALOG, 'all_ecoles': all_ecoles}
 
 
     ##### rendering page (can catalog/index.html be a settings?)
