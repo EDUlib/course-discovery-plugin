@@ -7,4 +7,4 @@ python-dateutil
 
 Make sure to be using python 3.5 or above
 
-Need to cleanup urls.py in both mysite and catalog
+pip install -r requirements.txt 
