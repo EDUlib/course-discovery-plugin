@@ -1,10 +1,41 @@
+Create virtual environment (make sure to be using python 3.5 or above in your virtualenv)
+
+mkdir Catalog
+cd Catalog
+virtualenv env
+source env/bin/activate
+pip install -r requirements.txt
+
+
+
+Clone repository
+
+git clone https://github.com/EDUlib/catalog.git
+
+
+
+run migrations
+
+cd catalog
+python manage.py migrate
+
+
+
+How to run
+
+cd catalog
+python manage.py runserver 8005
+
+
+Things to do
+
+a) python manage.py createsuperuser
+b) populate table for Ecoles in admin
+
+
 Modules needed by virtualenv
 
 django==1.11
 requests
 timestring
 python-dateutil
-
-Make sure to be using python 3.5 or above
-
-pip install -r requirements.txt 
