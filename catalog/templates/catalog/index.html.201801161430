@@ -1,0 +1,37 @@
+{% load static %}
+  
+<link rel="stylesheet" type="text/css" href="{% static 'catalog/style.css' %}" />
+
+{% if cours_non_finis %}
+    <h1>Cours disponibles sur EDUlib</h1>
+    <ul>
+
+    <div class="container">
+    {% for cours in cours_non_finis %}
+        <div class="course">
+        <a href="{{ edulib_lms }}/courses/{{ cours.key }}/about">{{ cours.title }}<br>
+        <img alt="IMAGE NON DISPONIBLE" src="{{ cours.image.src }}" width="280" height="160"><br>
+        <strong>Commence le {{ cours.start_affiche }}</strong>
+        </a>
+        </div>
+    {% endfor %}
+    </div>
+    </ul>
+
+    <h1>Cours par institution</h1>
+    <ul>
+
+    <div class="container">
+    {% for ecole in all_ecoles %}
+       <div class="course">
+            <a href="{{ edulib_catalog }}/{{ ecole.nom_court }}">
+            <img src="{% get_static_prefix %}/{{ ecole.logo }}" alt="{{ ecole.nom_long }}" width="400" height="200" /><br>
+            </a>
+       </div>
+    {% endfor %}
+    </div>
+
+    </ul>
+{% else %}
+    <p>Pas de cours disponibles sur EDUlib</p>
+{% endif %}
