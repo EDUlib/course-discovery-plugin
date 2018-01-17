@@ -12,20 +12,21 @@
         <div class="navbar-header">
             {# <a class="navbar-brand" href="{% url 'index' %}">EDUlib</a> #}
             <a class="navbar-brand" href="{% url 'index' %}">
-            <img src="static/catalog/edulib.png" width="75px"/>
+            <img src="/static/catalog/edulib.png" width="75px"/>
             </a>
         </div>
-        <div class="container">
-        <div class="dropdown">
-            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Institutions
-            <span class="caret"></span></button>
-            <ul class="dropdown-menu">
-               <li><a href="{{ edulib_catalog }}/umontreal">UMontreal</a></li>
-               <li><a href="{{ edulib_catalog }}/hec">HEC</a></li>
-               <li><a href="{{ edulib_catalog }}/polymtl">PolyMtl</a></li>
-            </ul>
+        <div class="container2">
+                <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Institutions
+                <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                   <li><a href="{{ edulib_catalog }}/umontreal">UMontreal</a></li>
+                   <li><a href="{{ edulib_catalog }}/hec">HEC</a></li>
+                   <li><a href="{{ edulib_catalog }}/polymtl">PolyMtl</a></li>
+                </ul>
+                </div>
         </div>
-        </div>
+    </div>
 </nav>
 {# navigation bar from boostrap #}
 
