@@ -1,50 +1,73 @@
 {% load static %}
-  
-{# needed for boostrap #}
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-{# needed for boostrap #}
 
-{# navigation bar from boostrap #}
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            {# <a class="navbar-brand" href="{% url 'index' %}">EDUlib</a> #}
-            <a class="navbar-brand" href="{% url 'index' %}">
-            <img src="/static/catalog/edulib.png" width="75px"/>
-            </a>
-        </div>
-        <div class="container2">
-                <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Institutions
-                <span class="caret"></span></button>
-                <ul class="dropdown-menu">
-                   <li><a href="{{ edulib_catalog }}/umontreal">UMontreal</a></li>
-                   <li><a href="{{ edulib_catalog }}/hec">HEC</a></li>
-                   <li><a href="{{ edulib_catalog }}/polymtl">PolyMtl</a></li>
-                </ul>
-                </div>
-        </div>
-    </div>
-</nav>
-{# navigation bar from boostrap #}
+<link rel="stylesheet" type="text/css" href="{% static 'catalog/style.css' %}" />
 
-{% if cours_non_finis %}
-    <h1>Cours à venir et en cours sur EDUlib</h1>
-    {# reloading EDUlib style #}
-    <link rel="stylesheet" type="text/css" href="{% static 'catalog/style.css' %}" />
-    {# reloading EDUlib style #}
-    <div class="container">
-        {% for cours in cours_non_finis %}
-            <div class="course">
-            <a href="{{ edulib_lms }}/courses/{{ cours.key }}/about">{{ cours.title }}<br>
-            <img alt="IMAGE NON DISPONIBLE" src="{{ cours.image.src }}" width="280" height="160"><br>
-            <strong>Commence le {{ cours.start_affiche }}</strong>
-            </a>
-            </div>
-        {% endfor %}
+</ul>
+
+{% if course_upcoming %}
+<h2>À venir</h2>
+
+<div class="container">
+    {% for each in course_upcoming %}
+    <div class="course">
+        <a href="{{ EDULIB_LMS }}/courses/{{ each.key }}/about">
+            {{ each.owner_print}}
+            <br>
+            {{ each.course_print }}
+            <br>
+            <strong>{{ each.title }}</strong>
+            <br>
+            <img alt="IMAGE NON DISPONIBLE" src="{{ each.image.src }}" width="280" height="160">
+            <br>
+            Commencera le {{ each.start_print }}
+        </a>
     </div>
-{% else %}
-    <p>Pas de cours disponibles sur EDUlib</p>
+    {% endfor %}
+</div>
 {% endif %}
+
+{% if course_current %}
+<h2>En cours</h2>
+
+<div class="container">
+    {% for each in course_current %}
+    <div class="course">
+        <a href="{{ EDULIB_LMS }}/courses/{{ each.key }}/about">
+            {{ each.owner_print}}
+            <br>
+            {{ each.course_print }}
+            <br>
+            <strong>{{ each.title }}</strong>
+            <br>
+            <img alt="IMAGE NON DISPONIBLE" src="{{ each.image.src }}" width="280" height="160">
+            <br>
+            A commencé le {{ each.start_print }}
+        </a>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+{% if course_past %}
+<h2>Terminé</h2>
+
+<div class="container">
+    {% for each in course_past %}
+    <div class="course">
+        <a href="{{ EDULIB_LMS }}/courses/{{ each.key }}/about">
+            {{ each.owner_print}}
+            <br>
+            {{ each.course_print }}
+            <br>
+            <strong>{{ each.title }}</strong>
+            <br>
+            <img alt="IMAGE NON DISPONIBLE" src="{{ each.image.src }}" width="280" height="160">
+            <br>
+            Terminé le {{ each.end_print }}
+        </a>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+</ul>

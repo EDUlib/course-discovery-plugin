@@ -1,114 +1,81 @@
 {% load static %}
 
-{# needed for boostrap #}
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-{# needed for boostrap #}
-
-{# navigation bar from boostrap #}
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            {# <a class="navbar-brand" href="{% url 'index' %}">EDUlib</a> #}
-            <a class="navbar-brand" href="{% url 'index' %}"> 
-            <img src="/static/catalog/edulib.png" width="75px"/>
-            </a>
-        </div>
-        <div class="container2">
-                <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Institutions
-                <span class="caret"></span></button>
-                <ul class="dropdown-menu">
-                   <li><a href="{{ edulib_catalog }}/umontreal">UMontreal</a></li>
-                   <li><a href="{{ edulib_catalog }}/hec">HEC</a></li>
-                   <li><a href="{{ edulib_catalog }}/polymtl">PolyMtl</a></li>
-                </ul>
-                </div>
-        </div>
-    </div>
-</nav>
-{# navigation bar from boostrap #}
-
-
 <link rel="stylesheet" type="text/css" href="{% static 'catalog/style.css' %}" />
 
-{% if cours_non_finis %}
-    <ul>
+<h1><img src="{% static "catalog/umontreal.png" %}" alt="Université de Montréal" width="600" height="200" /></h1>
 
-        <h1><img src="{% static "catalog/umontreal.png" %}" alt="Universit&eacute; de Montr&eacute;al" width="600" height="200" /></h1>
+    <p>L’Université de Montréal forme avec ses écoles affiliées, HEC Montréal et Polytechnique Montréal, le premier pôle d’enseignement et de recherche du Québec, tant par le nombre d’étudiants que par l’effectif professoral et le volume des activités de recherche. L’UdeM se situe au deuxième rang des universités canadiennes pour le nombre d’étudiants inscrits. Les campus de l’UdeM accueillent près d’un étudiant universitaire québécois sur quatre, soit une population étudiante de près de 60 000 personnes. Parmi les universités québécoises, l’UdeM est aussi le premier choix des étudiants de l’extérieur du pays, dont le nombre atteint presque 7 000. Elle emploie près de 9 000 personnes à temps plein, à temps partiel et à vacation, dont plus de 4 500 professeurs, chercheurs, chargés de cours, professeurs de clinique et chargés de clinique, ce qui la situe parmi les plus grands employeurs de Montréal.</p>
 
-        <p>L&rsquo;Universit&eacute; de Montr&eacute;al forme avec ses &eacute;coles affili&eacute;es, HEC Montr&eacute;al et Polytechnique Montr&eacute;al, le premier p&ocirc;le d&rsquo;enseignement et de recherche du Qu&eacute;bec, tant par le nombre d&rsquo;&eacute;tudiants que par l&rsquo;effectif professoral et le volume des activit&eacute;s de recherche. L&rsquo;UdeM se situe au deuxi&egrave;me rang des universit&eacute;s canadiennes pour le nombre d&rsquo;&eacute;tudiants inscrits. Les campus de l&rsquo;UdeM accueillent pr&egrave;s d&rsquo;un &eacute;tudiant universitaire qu&eacute;b&eacute;cois sur quatre, soit une population &eacute;tudiante de pr&egrave;s de <span style="white-space: nowrap;">60 000</span> personnes. Parmi les universit&eacute;s qu&eacute;b&eacute;coises, l&rsquo;UdeM est aussi le premier choix des &eacute;tudiants de l&rsquo;ext&eacute;rieur du pays, dont le nombre atteint presque <span style="white-space: nowrap;">7 000</span>. Elle emploie pr&egrave;s de <span style="white-space: nowrap;">9 000</span> personnes &agrave; temps plein, &agrave; temps partiel et &agrave; vacation, dont plus de <span style="white-space: nowrap;">4 500</span> professeurs, chercheurs, charg&eacute;s de cours, professeurs de clinique et charg&eacute;s de clinique, ce qui la situe parmi les plus grands employeurs de Montr&eacute;al.</p>
+    <p>Le Times Higher Education inclut l'Université de Montréal dans son classement des meilleures universités de la planète. Le réputé classement de l’université chinoise Jiao Tong, quant à lui, situe l’UdeM parmi les 150 meilleurs établissements universitaires du monde. Sur le plan de la recherche, l’UdeM figure au quatrième rang du classement canadien de l’organisme Research Info$ource.</p>
 
-        <p>Le Times Higher Education inclut l&rsquo;Universit&eacute; de Montr&eacute;al dans son classement des meilleures universit&eacute;s de la plan&egrave;te. Le r&eacute;put&eacute; classement de l&rsquo;universit&eacute; chinoise Jiao Tong, quant &agrave; lui, situe l&rsquo;UdeM parmi les 150 meilleurs &eacute;tablissements universitaires du monde. Sur le plan de la recherche, l&rsquo;UdeM figure au quatri&egrave;me rang du classement canadien de l&rsquo;organisme Research Info$ource.</p>
+    <p><a href="http://www.umontreal.ca" onclick="window.open(this.href);return false;">http://www.umontreal.ca</a></p>
 
-        <p><a href="http://www.umontreal.ca" onclick="window.open(this.href);return false;">http://www.umontreal.ca</a></p>
+<ul>
 
-
-
-    {% if cours_non_finis.0 %}
-          <h2>&Agrave; venir</h2>
-    {% endif %}
-
+    {% if course_upcoming %}
+    <h2>À venir</h2>
+    
     <div class="container">
-    {% for cours in cours_non_finis.0 %}
-       {% if cours.availability == "Upcoming" %}
-          {% if not cours.hidden %}
-             <div class="course">
-             <a href="{{ edulib_lms }}/courses/{{ cours.key }}/about">{{ cours.title }}<br>
-             <img alt="IMAGE NON DISPONIBLE" src="{{ cours.image.src }}" width="280" height="160"><br>
-             <strong>Commence le {{ cours.start_affiche }}</strong>
-             </a>
-             </div>
-          {%endif%}
-       {%endif%}
-    {% endfor %}
+        {% for each in course_upcoming %}
+        <div class="course">
+            <a href="{{ EDULIB_LMS }}/courses/{{ each.key }}/about">
+                {{ each.owner_print}}
+                <br>
+                {{ each.course_print }}
+                <br>
+                <strong>{{ each.title }}</strong>
+                <br>
+                <img alt="IMAGE NON DISPONIBLE" src="{{ each.image.src }}" width="280" height="160">
+                <br>
+                Commencera le {{ each.start_print }}
+            </a>
+        </div>
+        {% endfor %}
     </div>
-
-
-
-    {% if cours_non_finis.1 %}
-          <h2>En cours</h2>
     {% endif %}
-
+    
+    {% if course_current %}
+    <h2>En cours</h2>
+    
     <div class="container">
-    {% for cours in cours_non_finis.1 %}
-       {% if cours.availability == "Current" %}
-          {% if not cours.hidden %}
-             <div class="course">
-             <a href="{{ edulib_lms }}/courses/{{ cours.key }}/about">{{ cours.title }}<br>
-             <img alt="IMAGE NON DISPONIBLE" src="{{ cours.image.src }}" width="280" height="160"><br>
-             <strong>A commenc&eacute; le {{ cours.start_affiche }} </strong>
-             </a>
-             </div>
-          {%endif%}
-       {%endif%}
-    {% endfor %}
+        {% for each in course_current %}
+        <div class="course">
+            <a href="{{ EDULIB_LMS }}/courses/{{ each.key }}/about">
+                {{ each.owner_print}}
+                <br>
+                {{ each.course_print }}
+                <br>
+                <strong>{{ each.title }}</strong>
+                <br>
+                <img alt="IMAGE NON DISPONIBLE" src="{{ each.image.src }}" width="280" height="160">
+                <br>
+                A commencé le {{ each.start_print }}
+            </a>
+        </div>
+        {% endfor %}
     </div>
-
-
-
-
-    {% if cours_non_finis.2 %}
-          <h2>Termin&eacute;</h2>
     {% endif %}
-
+    
+    {% if course_past %}
+    <h2>Terminé</h2>
+    
     <div class="container">
-    {% for cours in cours_non_finis.2 %}
-       {% if cours.availability == "Archived" %}
-          <div class="course">
-          <a href="{{ edulib_lms }}/{{ cours.key }}/about">{{ cours.title }}<br>
-          <img alt="IMAGE NON DISPONIBLE" src="{{ cours.image.src }}" width="280" height="160"><br>
-          <strong>Termin&eacute; depuis le {{ cours.end_affiche }} </strong>
-          </a>
-          </div>
-       {%endif%}
-    {% endfor %}
+        {% for each in course_past %}
+        <div class="course">
+            <a href="{{ EDULIB_LMS }}/courses/{{ each.key }}/about">
+                {{ each.owner_print}}
+                <br>
+                {{ each.course_print }}
+                <br>
+                <strong>{{ each.title }}</strong>
+                <br>
+                <img alt="IMAGE NON DISPONIBLE" src="{{ each.image.src }}" width="280" height="160">
+                <br>
+                Terminé le {{ each.end_print }}
+            </a>
+        </div>
+        {% endfor %}
     </div>
-
-
-    </ul>
-
-{% else %}
-    <p>Pas de cours non finis.</p>
-{% endif %}
+    {% endif %}
+    
+</ul>
