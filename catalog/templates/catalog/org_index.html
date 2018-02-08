@@ -1,32 +1,33 @@
 {% load static %}
 {% include "catalog/header.html" %}
         <section class="home">
-          <header class="outer-wrapper">
-              <hgroup class="title">
-                    <h1>Notre expertise, vos compétences.</h1>
-              </hgroup>
+            <header class="outer-wrapper">
+                <hgroup class="title">
+                    <h1><img src="{{ORG_MODEL.logo}}" alt="{{ORG_MODEL.long_name}}" width="600" height="200" /></h1>
+                </hgroup>
             </header>
-            
+            <p>{{ORG_MODEL.description}}</p>
             
             <section class="courses-container container">
 
-                {% if cours_non_finis %}
+                {% if course_upcoming %}
                 <!--<section class="courses">-->
+                        <h2>À venir</h2>
                         <ul class="courses-listing">
 
-                {% for cours in cours_non_finis %}
+                {% for each in course_upcoming %}
                             <li class="courses-listing-item col-md-2">   
-                                <article class="course" id="{{ cours.key }}" role="region" aria-label="{{ cours.title }}">
-                                    <a href="{{ EDULIB_LMS }}/courses/{{ cours.key }}/about">
+                                <article class="course" id="{{ each.key }}" role="region" aria-label="{{ each.title }}">
+                                    <a href="{{ EDULIB_LMS }}/courses/{{ each.key }}/about">
                                         <header class="course-image">
-                                                <img src="{{ cours.image.src }}" />
+                                                <img src="{{ each.image.src }}" />
                                                 <div class="learn-more" aria-hidden=true>EN SAVOIR PLUS</div>
                                         </header>
                                         <ul class="course-info">
-                                                <li class="course-organization">Institution</li>
-                                                <li class="course-code">{{ cours.key }}</li>
-                                                <li class="course-title">{{ cours.title }}</li>
-                                                <li class="course-date localized_datetime">Commence le <time itemprop="startDate" datetime="{{ cours.start_affiche }}">{{ cours.start_affiche }}</time></li>
+                                                <li class="course-organization">{{ each.owner_print}}</li>
+                                                <li class="course-code">{{ each.course_print }}</li>
+                                                <li class="course-title">{{ each.title }}</li>
+                                                <li class="course-date localized_datetime">Commence le <time itemprop="startDate" datetime="{{ each.start_print }}">{{ each.start_print }}</time></li>
                                         </ul>
                                     </a>
                                 </article>
@@ -35,9 +36,67 @@
 
                         </ul>
                 <!--</section>-->
-    {% else %}
-                <p>Pas de cours disponibles sur EDUlib</p>
-    {% endif %}
+                {% endif %}
+            </section>
+            <section class="courses-container container">
+
+                {% if course_current %}
+                <!--<section class="courses">-->
+                        <h2>En cours</h2>
+                        <ul class="courses-listing">
+
+                {% for each in course_current %}
+                            <li class="courses-listing-item col-md-2">   
+                                <article class="course" id="{{ each.key }}" role="region" aria-label="{{ each.title }}">
+                                    <a href="{{ EDULIB_LMS }}/courses/{{ each.key }}/about">
+                                        <header class="course-image">
+                                                <img src="{{ each.image.src }}" />
+                                                <div class="learn-more" aria-hidden=true>EN SAVOIR PLUS</div>
+                                        </header>
+                                        <ul class="course-info">
+                                                <li class="course-organization">{{ each.owner_print}}</li>
+                                                <li class="course-code">{{ each.course_print }}</li>
+                                                <li class="course-title">{{ each.title }}</li>
+                                                <li class="course-date localized_datetime">A commencé le <time itemprop="startDate" datetime="{{ each.start_print }}">{{ each.start_print }}</time></li>
+                                        </ul>
+                                    </a>
+                                </article>
+                            </li>
+                            {% endfor %}
+
+                        </ul>
+                <!--</section>-->
+                {% endif %}
+            </section>
+            <section class="courses-container container">
+
+                {% if course_past %}
+                <!--<section class="courses">-->
+                        <h2>En archive</h2>
+                        <ul class="courses-listing">
+
+                {% for each in course_past %}
+                            <li class="courses-listing-item col-md-2">   
+                                <article class="course" id="{{ each.key }}" role="region" aria-label="{{ each.title }}">
+                                    <a href="{{ EDULIB_LMS }}/courses/{{ each.key }}/about">
+                                        <header class="course-image">
+                                                <img src="{{ each.image.src }}" />
+                                                <div class="learn-more" aria-hidden=true>EN SAVOIR PLUS</div>
+                                        </header>
+                                        <ul class="course-info">
+                                                <li class="course-organization">{{ each.owner_print}}</li>
+                                                <li class="course-code">{{ each.course_print }}</li>
+                                                <li class="course-title">{{ each.title }}</li>
+                                                <li class="course-date localized_datetime">A commencé le <time itemprop="startDate" datetime="{{ each.start_print }}">{{ each.start_print }}</time></li>
+                                        </ul>
+                                    </a>
+                                </article>
+                            </li>
+                            {% endfor %}
+
+                        </ul>
+                <!--</section>-->
+                {% endif %}
             </section>
         </section>
 {% include "catalog/footer.html" %}

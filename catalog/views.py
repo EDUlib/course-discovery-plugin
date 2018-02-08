@@ -87,6 +87,7 @@ def organisation(request, org_name):
         'course_past': course_past,
         'EDULIB_LMS': settings.EDULIB_LMS,
         'EDULIB_CATALOG': settings.EDULIB_CATALOG,
+        'ORG_MODEL': org_obj,
     }
     return render(request, 'catalog/org_index.html', context)
 
