@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<!--[if lte IE 9]><html class="ie ie9 lte9" lang="fr"><![endif]-->
+<!--[if !IE]><!--><html lang="fr"><!--<![endif]-->
+<head dir="ltr">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>EDUlib</title>
+{# needed for boostrap #}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'catalog/css/style.css' %}" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+{# needed for boostrap #}
+</head>
+
+<body>
+{# navigation bar from boostrap #}
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                {# <a class="navbar-brand" href="{% url 'index' %}">EDUlib</a> #}
+                <a class="navbar-brand" href="{{ EDULIB_CATALOG }}">
+                <img src="/static/catalog/images/edulib.png" width="75px"/>
+                </a>
+            </div>
+            <div class="container2">
+                    <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Institutions
+                    <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                       <li><a href="/umontreal">UMontreal</a></li>
+                       <li><a href="/hec">HEC</a></li>
+                       <li><a href="/polymtl">PolyMtl</a></li>
+                    </ul>
+                    </div>
+            </div>
+        </div>
+    </nav>
+{# navigation bar from boostrap #}
+
+    
+    <div class="content-wrapper main-container" id="content">
+        <main id="main" aria-label="Content" tabindex="-1">
+

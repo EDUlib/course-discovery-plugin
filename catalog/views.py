@@ -50,6 +50,7 @@ def catalog(request):
         'course_current': course_current,
         'course_past': course_past,
         'EDULIB_LMS': settings.EDULIB_LMS,
+        'EDULIB_CATALOG': settings.EDULIB_CATALOG,
     }
     return render(request, 'catalog/index.html', context)
 
@@ -85,8 +86,9 @@ def organisation(request, org_name):
         'course_current': course_current,
         'course_past': course_past,
         'EDULIB_LMS': settings.EDULIB_LMS,
+        'EDULIB_CATALOG': settings.EDULIB_CATALOG,
     }
-    return render(request, 'catalog/umontreal.html', context)
+    return render(request, 'catalog/org_index.html', context)
 
 def convert_time(run):
     """Convert the timecode into a nice localized string for a nice print."""
