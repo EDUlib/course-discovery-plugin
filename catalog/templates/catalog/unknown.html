@@ -11,7 +11,7 @@
     <div class="container-fluid">
         <div class="navbar-header">
             {# <a class="navbar-brand" href="{% url 'index' %}">EDUlib</a> #}
-            <a class="navbar-brand" href="{% url 'index' %}">
+            <a class="navbar-brand" href="{{ EDULIB_CATALOG }}">
             <img src="/static/catalog/images/edulib.png" width="75px"/>
             </a>
         </div>
@@ -20,9 +20,9 @@
                 <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Institutions
                 <span class="caret"></span></button>
                 <ul class="dropdown-menu">
-                   <li><a href="{{ edulib_catalog }}/umontreal">UMontreal</a></li>
-                   <li><a href="{{ edulib_catalog }}/hec">HEC</a></li>
-                   <li><a href="{{ edulib_catalog }}/polymtl">PolyMtl</a></li>
+                   <li><a href="/umontreal">UMontreal</a></li>
+                   <li><a href="/hec">HEC</a></li>
+                   <li><a href="/polymtl">PolyMtl</a></li>
                 </ul>
                 </div>
         </div>
@@ -32,4 +32,4 @@
 
 <link rel="stylesheet" type="text/css" href="{% static 'catalog/css/style.css' %}" />
 
-i<h1>D&eacute;sol&eacute; aucun cours disponible pour cette institution</h1>
+<h1>D&eacute;sol&eacute; aucun cours disponible pour cette institution</h1>

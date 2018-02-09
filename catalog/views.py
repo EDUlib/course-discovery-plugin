@@ -35,8 +35,8 @@ def catalog(request):
             #Check if org_url is valid
             #Skip the content preparation if associated organisation doesnt exist or cannot be shown
             try:
-                org = Organisation.objects.get(short_name = owner_key.lower(), show_org = True)
-                convert_owner(run, org)
+                org_obj = Organisation.objects.get(short_name = owner_key.lower(), show_org = True)
+                convert_owner(run, org_obj)
             except:
                 continue
             
@@ -58,7 +58,10 @@ def organisation(request, org_name):
     """Code for the organisations' html page."""
     #Check if org_name is valid
     #Raise error 404 if requested organisation doesnt exist or cannot be shown
-    org_obj = get_object_or_404(Organisation, short_name = org_name.lower(), show_org = True)
+    try:
+        org_obj = Organisation.objects.get(short_name = org_name.lower())
+    except:
+        return render(request, 'catalog/unknown.html')
     
     #Initial setup
     auth = (settings.EDULIB_USER, settings.EDULIB_PWD)
