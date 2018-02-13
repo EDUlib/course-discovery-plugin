@@ -12,7 +12,7 @@ from django.conf import settings
 from django.http import HttpResponse, Http404
 from .models import Organisation
 
-locale.setlocale(locale.LC_ALL, 'fr_CA')
+locale.setlocale(locale.LC_ALL, settings.LANGUAGE_CODE)
 
 # Create your views here.
 
@@ -39,7 +39,7 @@ def catalog(request):
                 convert_owner(run, org_obj)
             except:
                 continue
-            
+
             convert_course(run, owner_key)
             convert_time(run)
             categorize(run, course_upcoming, course_current, course_past)
