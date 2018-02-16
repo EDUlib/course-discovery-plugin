@@ -19,6 +19,81 @@
 
 <body>
 {# navigation bar from boostrap #}
+    
+    
+    <header id="global-navigation" class="header-global ">
+    <nav class="navbar navbar-default">
+      
+        <h1 class="logo-header">
+            <a href="/">
+                <img src="/static/catalog/images/edulib.png" alt="Page d'accueil EDUlib" />
+            </a>
+        </h1>
+        
+        <ol class="left list-inline nav-global">
+
+              <li class="nav-global">
+                <a href="/about">À propos</a>
+              </li>
+              <li class="nav-global">
+                <a href="/faq">FAQ</a>
+              </li>
+              <li class="nav-global">
+                <a href="/courses">Cours</a>
+              </li>
+              <li class="nav-global">
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Institutions
+                    <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                       <li><a href="/umontreal">UMontreal</a></li>
+                       <li><a href="/hec">HEC</a></li>
+                       <li><a href="/polymtl">PolyMtl</a></li>
+                    </ul>
+                </div>
+              </li>
+              
+
+        </ol>
+
+        <ol class="right nav-courseware list-inline">
+            
+              <li class="nav-global">
+                <a href="/register">Inscription</a>
+              </li>
+
+              <li class="nav-global">
+                <a class="btn btn-primary" href="/login">Connexion</a>
+              </li>
+            
+              <li class="nav-global">
+                <!--<form action="/i18n/setlang/" method="post" class="settings-language-form" id="language-settings-form">
+                    <input id="csrf_token" name="csrfmiddlewaretoken" value="7xU8kgVsZbd0OnFbGSFwvHUkIDoVhjpU" type="hidden">
+                      <input title="session update url" class="url-endpoint" value="/lang_pref/session_language" data-user-is-authenticated="false" type="hidden">
+                    <label><span class="sr-only">Choisir la langue</span>
+                          <select class="input select language-selector" id="settings-language-value" name="language">
+                            <option value="en">English</option>
+                            <option value="fr" selected="selected">Français</option>
+                      </select>
+                    </label>
+                </form>-->
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">&#x1F310;
+                    <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                       <li><a href="/fr">Français</a></li>
+                       <li><a href="/en">English</a></li>
+                    </ul>
+                </div>
+              </li>
+
+        </ol>
+            </nav>
+          </header>
+    
+    <!-- 
+    
+    
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -39,7 +114,7 @@
                     </div>
             </div>
         </div>
-    </nav>
+    </nav>-->
 {# navigation bar from boostrap #}
 
     

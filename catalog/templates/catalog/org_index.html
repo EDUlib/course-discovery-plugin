@@ -1,12 +1,15 @@
 {% load static %}
 {% include "catalog/header.html" %}
         <section class="home">
-            <header class="outer-wrapper">
+            <header class="outer-wrapper institution">
                 <hgroup class="title">
                         <a href="{{ ORG_MODEL.org_url }}"><img src="{{ORG_MODEL.logo}}" alt="{{ORG_MODEL.long_name}}" width="600" height="200" /></a>
                 </hgroup>
             </header>
-            <p>{{ORG_MODEL.description}}</p>
+            
+            <section class="institution">
+                <p>{{ORG_MODEL.description}}</p>
+            </section>
             
             <section class="courses-container container">
 
