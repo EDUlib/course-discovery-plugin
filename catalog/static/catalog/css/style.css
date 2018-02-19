@@ -3,7 +3,7 @@
 
 body, select {font-family: "Open Sans", Helvetica, Arial, sans-serif;}
 
-nav.navbar {
+header nav.navbar {
     margin-bottom: 0;
     padding: 0em 15em;
     color: #0075b4;
@@ -11,31 +11,24 @@ nav.navbar {
     font-weight: bold;
 }
 
-nav.navbar h1, nav.navbar ol {
+header nav.navbar h1, nav.navbar ol {
     display: inline-block;
     margin: 0em 1em 0.5em 0em;
 }
 
-nav.navbar h1 img {
+header nav.navbar h1 img {
     width: 100px;
     height: auto;
     margin-top: 5px;
 }
 
-nav.navbar ol {
+header nav.navbar div.dropdown button {text-transform: uppercase;}
+
+header nav.navbar ol.right {
     
-}
-
-nav.navbar div.dropdown button {text-transform: uppercase;}
-
-nav.navbar ol.right {
     float: right;
     margin-top: 1em;
-    /*
-    position: absolute;
-    right: 10em;
-    top: 1em;
-    */
+    
 }
 
 header.outer-wrapper {
@@ -195,39 +188,44 @@ ul.course-info li.course-date {
     margin-top: 20px;
 }
 
-
-
-/*.container {
-  display: grid;
-  grid-template-columns: 400px 400px 400px ;
-  background-color: white;
-  grid-gap: 25px;
-  justify-content: baseline;
+footer.wrapper-footer {
+    box-shadow: 0 -1px 5px 0 rgba(0,0,0,0.1);
+    border-top: 1px solid #c5c6c7;
+    padding: 0 1em;
+    background: #f8f8f8;
+    margin-top: 2em;
+    margin-bottom: -1em;
+    clear: both;
 }
 
-.container::before {
-  content: none;
-}
-.container::after {
-  content: none;
+footer nav.navbar-default {
+    background-color: transparent;
+    border: none;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-.btn-primary {
-    color: #fff;
-    border-color: #2e6da4;
-    justify-content: center;
-    margin-top: 15px;
-    margin-bottom: 15px;
+footer nav.navbar {
+    margin-bottom: 0;
 }
-*/
+
+ul.social-media-links {
+    margin-right: 15px;
+    font-size: 24px;
+}
+
+footer p.copyright {
+    padding: 0 1em 2em 1em;
+    font-size: 12px;
+    margin-top: -20px;
+    clear: both;
+}
+
+img.footer-logo  {
+    height: 0.75em;
+    width: auto;
+    margin-bottom: 2px;
+}
+
+a.openedx-link img  {
+    vertical-align: top;
+}
+
