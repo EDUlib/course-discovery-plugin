@@ -88,7 +88,9 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-#DATABASES = {
+#REPLACE previous section by this if using mysql database
+#EDIT my.cnf only if using mysql database
+# DATABASES = {
 #    'default': {
 #        'ENGINE': 'django.db.backends.mysql',
 #        'OPTIONS': {

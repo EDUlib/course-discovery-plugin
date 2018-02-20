@@ -13,24 +13,24 @@ Clone repository
 git clone https://github.com/EDUlib/catalog.git
 
 
-
-run migrations
+Run migrations
 
 cd catalog
 python manage.py migrate
 
 
+Things to do
+
+a) Edit settings.py with the right information
+b) Edit my.cnf if using mysql database or delete if not required
+c) python manage.py createsuperuser
+d) populate table for organisations in admin after runserver
+
 
 How to run
 
 cd catalog
-python manage.py runserver 8005
-
-
-Things to do
-
-a) python manage.py createsuperuser
-b) populate table for Ecoles in admin
+python manage.py runserver
 
 
 Modules needed by virtualenv
