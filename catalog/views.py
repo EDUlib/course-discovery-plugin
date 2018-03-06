@@ -50,7 +50,6 @@ def catalog(request):
         'course_current': course_current,
         'course_past': course_past,
         'EDULIB_LMS': settings.EDULIB_LMS,
-        'EDULIB_CATALOG': settings.EDULIB_CATALOG,
     }
     return render(request, 'catalog/index.html', context)
 
@@ -89,7 +88,6 @@ def organisation(request, org_name):
         'course_current': course_current,
         'course_past': course_past,
         'EDULIB_LMS': settings.EDULIB_LMS,
-        'EDULIB_CATALOG': settings.EDULIB_CATALOG,
         'ORG_MODEL': org_obj,
     }
     return render(request, 'catalog/org_index.html', context)
