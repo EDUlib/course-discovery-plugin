@@ -20,7 +20,8 @@ def catalog(request):
     """Code for the catalog html page."""
     #Initial setup
     auth = (settings.EDULIB_USER, settings.EDULIB_PWD)
-    answer = requests.get(settings.EDULIB_DISCO, auth=auth)
+    search = (settings.EDULIB_DISCO+settings.EDULIB_DISCO_SEARCH)
+    answer = requests.get(search, auth=auth)
     data = json.loads(answer.text)
     course_upcoming = []
     course_current = []
@@ -50,6 +51,7 @@ def catalog(request):
         'course_current': course_current,
         'course_past': course_past,
         'EDULIB_LMS': settings.EDULIB_LMS,
+        'EDULIB_DISCO': settings.EDULIB_DISCO,
     }
     return render(request, 'catalog/index.html', context)
 
@@ -64,7 +66,8 @@ def organisation(request, org_name):
     
     #Initial setup
     auth = (settings.EDULIB_USER, settings.EDULIB_PWD)
-    answer = requests.get(settings.EDULIB_DISCO, auth=auth)
+    search = (settings.EDULIB_DISCO+settings.EDULIB_DISCO_SEARCH)
+    answer = requests.get(search, auth=auth)
     data = json.loads(answer.text)
     course_upcoming = []
     course_current = []
@@ -88,6 +91,7 @@ def organisation(request, org_name):
         'course_current': course_current,
         'course_past': course_past,
         'EDULIB_LMS': settings.EDULIB_LMS,
+        'EDULIB_DISCO': settings.EDULIB_DISCO,
         'ORG_MODEL': org_obj,
     }
     return render(request, 'catalog/org_index.html', context)

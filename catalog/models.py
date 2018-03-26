@@ -14,3 +14,10 @@ class Organisation(models.Model):
     
     def __str__(self):
         return self.long_name
+
+class CourseURL(models.Model):
+    course_key = models.CharField(max_length=100,unique=True)
+    url = models.CharField(max_length=1000)
+
+    def __str__(self):
+        return self.course_key
