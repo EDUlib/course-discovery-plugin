@@ -47,9 +47,9 @@
                     <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Institutions
                     <span class="caret"></span></button>
                     <ul class="dropdown-menu">
-                       <li><a href="/umontreal">UMontreal</a></li>
-                       <li><a href="/hec">HEC</a></li>
-                       <li><a href="/polymtl">PolyMtl</a></li>
+                        {% for each in organisation %}
+                            <li><a href="/{{each.short_name}}">{{each.long_name}}</a></li>
+                        {% endfor %}
                     </ul>
                 </div>
               </li>

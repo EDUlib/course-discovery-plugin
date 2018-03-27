@@ -10,7 +10,7 @@ import dateutil.parser
 from django.shortcuts import render, get_object_or_404
 from django.conf import settings
 from django.http import HttpResponse, Http404
-from .models import Organisation
+from .models import Organisation, CourseURL
 
 locale.setlocale(locale.LC_ALL, settings.LANGUAGE_CODE)
 
@@ -43,6 +43,7 @@ def catalog(request):
 
             convert_course(run, owner_key)
             convert_time(run)
+            convert_url(run)
             categorize(run, course_upcoming, course_current, course_past)
 
     #Values passed to html
@@ -52,6 +53,7 @@ def catalog(request):
         'course_past': course_past,
         'EDULIB_LMS': settings.EDULIB_LMS,
         'EDULIB_DISCO': settings.EDULIB_DISCO,
+        'organisation': Organisation.objects.all()
     }
     return render(request, 'catalog/index.html', context)
 
@@ -83,6 +85,7 @@ def organisation(request, org_name):
                 convert_owner(run, org_obj)
                 convert_course(run, owner_key)
                 convert_time(run)
+                convert_url(run)
                 categorize(run, course_upcoming, course_current, course_past)
     
     #Values passed to html
@@ -93,6 +96,7 @@ def organisation(request, org_name):
         'EDULIB_LMS': settings.EDULIB_LMS,
         'EDULIB_DISCO': settings.EDULIB_DISCO,
         'ORG_MODEL': org_obj,
+        'organisation': Organisation.objects.all()
     }
     return render(request, 'catalog/org_index.html', context)
 
@@ -129,4 +133,13 @@ def convert_course(run, owner_key):
     key = run[0]['course']
     run[0]['course_print'] = key[len(owner_key)+1:]
     return run
-    
+
+def convert_url (run):
+    #Check if url has to be changed
+    #Use default url if course_key is not in table
+    key = run[0]['key']
+    try:
+        courseURL_obj = CourseURL.objects.get(course_key = key)
+        run[0]['courseURL'] = courseURL_obj.url
+    except:
+        run[0]['courseURL'] = settings.EDULIB_LMS + ('/') + key +('/about')

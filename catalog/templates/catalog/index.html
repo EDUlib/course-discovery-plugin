@@ -18,7 +18,7 @@
                 {% for each in course_upcoming %}
                             <li class="courses-listing-item col-md-2">   
                                 <article class="course" id="{{ each.key }}" role="region" aria-label="{{ each.title }}">
-                                    <a href="{{ EDULIB_LMS }}/courses/{{ each.key }}/about">
+                                    <a href="{{each.courseURL}}">
                                         <header class="course-image">
                                                 <img alt="{{ each.title }}" src="{{ EDULIB_DISCO }}{{ each.image.src }}" />
                                                 <div class="learn-more" aria-hidden=true>EN SAVOIR PLUS</div>
@@ -48,7 +48,7 @@
                 {% for each in course_current %}
                             <li class="courses-listing-item col-md-2">   
                                 <article class="course" id="{{ each.key }}" role="region" aria-label="{{ each.title }}">
-                                    <a href="{{ EDULIB_LMS }}/courses/{{ each.key }}/about">
+                                    <a href="{{each.courseURL}}">
                                         <header class="course-image">
                                                 <img alt="{{ each.title }}" src="{{ EDULIB_DISCO }}{{ each.image.src }}" />
                                                 <div class="learn-more" aria-hidden=true>EN SAVOIR PLUS</div>
