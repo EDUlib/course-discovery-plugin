@@ -37,14 +37,14 @@ def catalog(request):
             #Skip the content preparation if associated organisation doesnt exist or cannot be shown
             try:
                 org_obj = Organisation.objects.get(short_name = owner_key.lower(), show_org = True)
-                convert_owner(run, org_obj)
             except:
                 continue
-
+            convert_owner(run, org_obj)
             convert_course(run, owner_key)
             convert_time(run)
             convert_url(run)
             categorize(run, course_upcoming, course_current, course_past)
+            
 
     #Values passed to html
     context = {
@@ -53,7 +53,7 @@ def catalog(request):
         'course_past': course_past,
         'EDULIB_LMS': settings.EDULIB_LMS,
         'EDULIB_DISCO': settings.EDULIB_DISCO,
-        'organisation': Organisation.objects.all()
+        'organisation': Organisation.objects.filter(show_org=True).order_by('long_name'),
     }
     return render(request, 'catalog/index.html', context)
 
@@ -61,6 +61,7 @@ def organisation(request, org_name):
     """Code for the organisations' html page."""
     #Check if org_name is valid
     #Raise error 404 if requested organisation doesnt exist or cannot be shown
+    #locale.setlocale(locale.LC_ALL, 'en_CA')
     try:
         org_obj = Organisation.objects.get(short_name = org_name.lower())
     except:
@@ -96,7 +97,7 @@ def organisation(request, org_name):
         'EDULIB_LMS': settings.EDULIB_LMS,
         'EDULIB_DISCO': settings.EDULIB_DISCO,
         'ORG_MODEL': org_obj,
-        'organisation': Organisation.objects.all()
+        'organisation': Organisation.objects.filter(show_org=True).order_by('long_name'),
     }
     return render(request, 'catalog/org_index.html', context)
 
@@ -108,7 +109,6 @@ def convert_time(run):
     if run[0]['start']:
         yourdate_start = dateutil.parser.parse(run[0]['start'])
         run[0]['start_print'] = yourdate_start.strftime("%d %B %Y")
-    return run
 
 def categorize(run, course_upcoming, course_current, course_past):
     """Separate course using their availability status."""
@@ -120,26 +120,22 @@ def categorize(run, course_upcoming, course_current, course_past):
         course_past.append(run[0])
     else:
         pass
-    return course_upcoming, course_current, course_past
 
 def convert_owner(run, owner):
     """Swap the owner key for the long name for a nice print"""
     owner_print=owner.long_name
     run[0]['owner_print'] = owner_print
-    return run
 
 def convert_course(run, owner_key):
     """Truncate the owner key from the course key string for a nice print."""
     key = run[0]['course']
     run[0]['course_print'] = key[len(owner_key)+1:]
-    return run
 
 def convert_url (run):
-    #Check if url has to be changed
-    #Use default url if course_key is not in table
+    """Check if url has to be changed, use default url if course_key is not in table"""
     key = run[0]['key']
     try:
         courseURL_obj = CourseURL.objects.get(course_key = key)
         run[0]['courseURL'] = courseURL_obj.url
     except:
-        run[0]['courseURL'] = settings.EDULIB_LMS + ('/') + key +('/about')
+        run[0]['courseURL'] = settings.EDULIB_LMS + ('/courses/') + key +('/about')
