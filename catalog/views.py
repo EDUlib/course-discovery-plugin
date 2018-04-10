@@ -43,6 +43,7 @@ def catalog(request):
             convert_course(run, owner_key)
             convert_time(run)
             convert_url(run)
+            convert_image(each)
             categorize(run, course_upcoming, course_current, course_past)
             
 
@@ -87,6 +88,7 @@ def organisation(request, org_name):
                 convert_course(run, owner_key)
                 convert_time(run)
                 convert_url(run)
+                convert_image(each)
                 categorize(run, course_upcoming, course_current, course_past)
     
     #Values passed to html
@@ -139,3 +141,10 @@ def convert_url (run):
         run[0]['courseURL'] = courseURL_obj.url
     except:
         run[0]['courseURL'] = settings.EDULIB_LMS + ('/courses/') + key +('/about')
+
+def convert_image (course):
+    """If course_run image is empty, use the course image"""
+    if course['course_runs'][0]['image']:
+        course['course_runs'][0]['image_src']=course['course_runs'][0]['image']['src']
+    else:
+        course['course_runs'][0]['image_src']=settings.EDULIB_DISCO+course['original_image']['src']
