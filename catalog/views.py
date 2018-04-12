@@ -101,7 +101,10 @@ def organisation(request, org_name):
         'ORG_MODEL': org_obj,
         'organisation': Organisation.objects.filter(show_org=True).order_by('long_name'),
     }
-    return render(request, 'catalog/org_index.html', context)
+    if org_obj.show_org:
+        return render(request, 'catalog/org_index.html', context)
+    else:
+        return render(request, 'catalog/org_index_no_header.html', context)
 
 def convert_time(run):
     """Convert the timecode into a nice localized string for a nice print."""
