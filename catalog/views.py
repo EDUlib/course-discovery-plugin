@@ -91,6 +91,10 @@ def organisation(request, org_name):
                 convert_image(each)
                 categorize(run, course_upcoming, course_current, course_past)
     
+    header = "catalog/header_no.html"
+    if org_obj.show_org:
+        header = "catalog/header.html"
+
     #Values passed to html
     context = {
         'course_upcoming': course_upcoming,
@@ -100,14 +104,13 @@ def organisation(request, org_name):
         'EDULIB_DISCO': settings.EDULIB_DISCO,
         'ORG_MODEL': org_obj,
         'organisation': Organisation.objects.filter(show_org=True).order_by('long_name'),
+        'header': header,
     }
-    if org_obj.show_org:
-        return render(request, 'catalog/org_index.html', context)
-    else:
-        return render(request, 'catalog/org_index_no_header.html', context)
+    return render(request, 'catalog/org_index.html', context)
 
 def convert_time(run):
     """Convert the timecode into a nice localized string for a nice print."""
+    locale.setlocale(locale.LC_ALL, settings.LANGUAGE_CODE)
     if run[0]['end']:
         yourdate_end = dateutil.parser.parse(run[0]['end'])
         run[0]['end_print'] = yourdate_end.strftime("%d %B %Y")

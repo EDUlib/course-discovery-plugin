@@ -1,21 +1,18 @@
 {% load static %}
-{% include "catalog/header_no.html" %}
+{% include "catalog/header.html" %}
         <section class="home">
-            <header class="outer-wrapper institution">
-                <hgroup class="title">
-                        <a href="{{ ORG_MODEL.org_url }}"><img src="{{ORG_MODEL.logo}}" alt="{{ORG_MODEL.long_name}}" width="600" height="200" /></a>
-                </hgroup>
+          <header class="outer-wrapper">
+              <hgroup class="title">
+                    <h1>Our expertise, your skill.</h1>
+              </hgroup>
             </header>
             
-            <section class="institution">
-                <p>{{ORG_MODEL.description}}</p>
-            </section>
             
             <section class="courses-container container">
 
                 {% if course_upcoming %}
                 <!--<section class="courses">-->
-                        <h2>À venir</h2>
+                        <h2>Upcoming</h2>
                         <ul class="courses-listing">
 
                 {% for each in course_upcoming %}
@@ -23,14 +20,14 @@
                                 <article class="course" id="{{ each.key }}" role="region" aria-label="{{ each.title }}">
                                     <a href="{{each.courseURL}}">
                                         <header class="course-image">
-                                                <img alt="{{ each.title }}" src="{{ each.image_src }}" />
+                                                <img alt="{{ each.title }}" src="{{ EDULIB_DISCO }}{{ each.image.src }}" />
                                                 <div class="learn-more" aria-hidden=true>EN SAVOIR PLUS</div>
                                         </header>
                                         <ul class="course-info">
                                                 <li class="course-organization">{{ each.owner_print}}</li>
                                                 <li class="course-code">{{ each.course_print }}</li>
                                                 <li class="course-title">{{ each.title }}</li>
-                                                <li class="course-date localized_datetime">Commence le <time itemprop="startDate" datetime="{{ each.start_print }}">{{ each.start_print }}</time></li>
+                                                <li class="course-date localized_datetime">Starts <time itemprop="startDate" datetime="{{ each.start_print }}">{{ each.start_print }}</time></li>
                                         </ul>
                                     </a>
                                 </article>
@@ -45,7 +42,7 @@
 
                 {% if course_current %}
                 <!--<section class="courses">-->
-                        <h2>En cours</h2>
+                        <h2>In progress</h2>
                         <ul class="courses-listing">
 
                 {% for each in course_current %}
@@ -53,44 +50,14 @@
                                 <article class="course" id="{{ each.key }}" role="region" aria-label="{{ each.title }}">
                                     <a href="{{each.courseURL}}">
                                         <header class="course-image">
-                                                <img alt="{{ each.title }}" src="{{ each.image_src }}" />
+                                                <img alt="{{ each.title }}" src="{{ EDULIB_DISCO }}{{ each.image.src }}" />
                                                 <div class="learn-more" aria-hidden=true>EN SAVOIR PLUS</div>
                                         </header>
                                         <ul class="course-info">
                                                 <li class="course-organization">{{ each.owner_print}}</li>
                                                 <li class="course-code">{{ each.course_print }}</li>
                                                 <li class="course-title">{{ each.title }}</li>
-                                                <li class="course-date localized_datetime">A commencé le <time itemprop="startDate" datetime="{{ each.start_print }}">{{ each.start_print }}</time></li>
-                                        </ul>
-                                    </a>
-                                </article>
-                            </li>
-                            {% endfor %}
-
-                        </ul>
-                <!--</section>-->
-                {% endif %}
-            </section>
-            <section class="courses-container container">
-
-                {% if course_past %}
-                <!--<section class="courses">-->
-                        <h2>En archive</h2>
-                        <ul class="courses-listing">
-
-                {% for each in course_past %}
-                            <li class="courses-listing-item col-md-2">   
-                                <article class="course" id="{{ each.key }}" role="region" aria-label="{{ each.title }}">
-                                    <a href="{{each.courseURL}}">
-                                        <header class="course-image">
-                                                <img alt="{{ each.title }}" src="{{ each.image_src }}" />
-                                                <div class="learn-more" aria-hidden=true>EN SAVOIR PLUS</div>
-                                        </header>
-                                        <ul class="course-info">
-                                                <li class="course-organization">{{ each.owner_print}}</li>
-                                                <li class="course-code">{{ each.course_print }}</li>
-                                                <li class="course-title">{{ each.title }}</li>
-                                                <li class="course-date localized_datetime">A commencé le <time itemprop="startDate" datetime="{{ each.start_print }}">{{ each.start_print }}</time></li>
+                                                <li class="course-date localized_datetime">Has started <time itemprop="startDate" datetime="{{ each.start_print }}">{{ each.start_print }}</time></li>
                                         </ul>
                                     </a>
                                 </article>
