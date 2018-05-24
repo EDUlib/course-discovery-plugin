@@ -1,1 +1,3 @@
 db.sqlite3
+mysite/settings.py
+mysite/my.cnf

@@ -12,13 +12,25 @@ from django.conf import settings
 from django.http import HttpResponse, Http404
 from .models import Organisation, CourseURL
 
-locale.setlocale(locale.LC_ALL, settings.LANGUAGE_CODE)
+#locale.setlocale(locale.LC_ALL, settings.LANGUAGE_CODE)
 
 # Create your views here.
+def catalog_fr(request):
+    return catalog(request, 'fr_CA', 'catalog/index.html')
 
-def catalog(request):
+def catalog_en(request):
+    return catalog(request, 'en_US', 'catalog/index_en.html')
+
+def organisation_fr(request, org_name):
+    return organisation(request, org_name, 'fr_CA', 'catalog/org_index.html')
+
+def organisation_en(request, org_name):
+    return organisation(request, org_name, 'en_US', 'catalog/org_index_en.html')
+
+def catalog(request, lang, index):
     """Code for the catalog html page."""
     #Initial setup
+    locale.setlocale(locale.LC_ALL, lang)
     auth = (settings.EDULIB_USER, settings.EDULIB_PWD)
     search = (settings.EDULIB_DISCO+settings.EDULIB_DISCO_SEARCH)
     answer = requests.get(search, auth=auth)
@@ -56,13 +68,13 @@ def catalog(request):
         'EDULIB_DISCO': settings.EDULIB_DISCO,
         'organisation': Organisation.objects.filter(show_org=True).order_by('long_name'),
     }
-    return render(request, 'catalog/index.html', context)
+    return render(request, index, context)
 
-def organisation(request, org_name):
+def organisation(request, org_name, lang, index):
     """Code for the organisations' html page."""
     #Check if org_name is valid
     #Raise error 404 if requested organisation doesnt exist or cannot be shown
-    #locale.setlocale(locale.LC_ALL, 'en_CA')
+    locale.setlocale(locale.LC_ALL, lang)
     try:
         org_obj = Organisation.objects.get(short_name = org_name.lower())
     except:
@@ -92,8 +104,10 @@ def organisation(request, org_name):
                 categorize(run, course_upcoming, course_current, course_past)
     
     header = "catalog/header_no.html"
-    if org_obj.show_org:
+    if org_obj.show_org and lang=='fr_CA':
         header = "catalog/header.html"
+    elif org_obj.show_org and lang=='en_US':
+        header = "catalog/header_en.html"
 
     #Values passed to html
     context = {
@@ -106,11 +120,10 @@ def organisation(request, org_name):
         'organisation': Organisation.objects.filter(show_org=True).order_by('long_name'),
         'header': header,
     }
-    return render(request, 'catalog/org_index.html', context)
+    return render(request, index, context)
 
 def convert_time(run):
     """Convert the timecode into a nice localized string for a nice print."""
-    locale.setlocale(locale.LC_ALL, settings.LANGUAGE_CODE)
     if run[0]['end']:
         yourdate_end = dateutil.parser.parse(run[0]['end'])
         run[0]['end_print'] = yourdate_end.strftime("%d %B %Y")
@@ -120,7 +133,7 @@ def convert_time(run):
 
 def categorize(run, course_upcoming, course_current, course_past):
     """Separate course using their availability status."""
-    if (run[0]['availability'] in ('Upcoming', 'Starting Soon') and not run[0]['hidden']):
+    if run[0]['availability'] in ('Upcoming', 'Starting Soon') and not run[0]['hidden']:
         course_upcoming.append(run[0])
     elif run[0]['availability'] == 'Current' and not run[0]['hidden']:
         course_current.append(run[0])

@@ -1,9 +1,9 @@
 {% load static %}
-{% include "catalog/header.html" %}
+{% include "catalog/header_en.html" %}
         <section class="home">
           <header class="outer-wrapper">
               <hgroup class="title">
-                    <h1>Our expertise, your skill.</h1>
+                    <h1>Our expertise, your skills.</h1>
               </hgroup>
             </header>
             
@@ -20,8 +20,8 @@
                                 <article class="course" id="{{ each.key }}" role="region" aria-label="{{ each.title }}">
                                     <a href="{{each.courseURL}}">
                                         <header class="course-image">
-                                                <img alt="{{ each.title }}" src="{{ EDULIB_DISCO }}{{ each.image.src }}" />
-                                                <div class="learn-more" aria-hidden=true>EN SAVOIR PLUS</div>
+                                                <img alt="{{ each.title }}" src="{{ each.image_src }}" />
+                                                <div class="learn-more" aria-hidden=true>KNOW MORE</div>
                                         </header>
                                         <ul class="course-info">
                                                 <li class="course-organization">{{ each.owner_print}}</li>
@@ -42,7 +42,7 @@
 
                 {% if course_current %}
                 <!--<section class="courses">-->
-                        <h2>In progress</h2>
+                        <h2>Current</h2>
                         <ul class="courses-listing">
 
                 {% for each in course_current %}
@@ -50,14 +50,14 @@
                                 <article class="course" id="{{ each.key }}" role="region" aria-label="{{ each.title }}">
                                     <a href="{{each.courseURL}}">
                                         <header class="course-image">
-                                                <img alt="{{ each.title }}" src="{{ EDULIB_DISCO }}{{ each.image.src }}" />
-                                                <div class="learn-more" aria-hidden=true>EN SAVOIR PLUS</div>
+                                                <img alt="{{ each.title }}" src="{{ each.image_src }}" />
+                                                <div class="learn-more" aria-hidden=true>KNOW MORE</div>
                                         </header>
                                         <ul class="course-info">
                                                 <li class="course-organization">{{ each.owner_print}}</li>
                                                 <li class="course-code">{{ each.course_print }}</li>
                                                 <li class="course-title">{{ each.title }}</li>
-                                                <li class="course-date localized_datetime">Has started <time itemprop="startDate" datetime="{{ each.start_print }}">{{ each.start_print }}</time></li>
+                                                <li class="course-date localized_datetime">Starts <time itemprop="startDate" datetime="{{ each.start_print }}">{{ each.start_print }}</time></li>
                                         </ul>
                                     </a>
                                 </article>
@@ -69,4 +69,4 @@
                 {% endif %}
             </section>
         </section>
-{% include "catalog/footer.html" %}
+{% include "catalog/footer_en.html" %}

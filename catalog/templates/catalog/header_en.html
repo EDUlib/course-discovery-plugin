@@ -1,0 +1,124 @@
+{% load static %}
+<!DOCTYPE html>
+<!--[if lte IE 9]><html class="ie ie9 lte9" lang="fr"><![endif]-->
+<!--[if !IE]><!--><html lang="fr"><!--<![endif]-->
+<head dir="ltr">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>EDUlib</title>
+{# needed for boostrap #}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'catalog/css/style.css' %}" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+{# needed for boostrap #}
+</head>
+
+<body>
+{# navigation bar from boostrap #}
+    
+    
+    <header id="global-navigation" class="header-global ">
+    <nav class="navbar navbar-default">
+      
+        <h1 class="logo-header">
+            <a href="/en">
+                <img src="/static/catalog/images/edulib.png" alt="EDUlib Home Page" />
+            </a>
+        </h1>
+        
+        <ol class="left list-inline nav-global">
+
+              <li class="nav-global">
+                <a href="/about">About</a>
+              </li>
+              <li class="nav-global">
+                <a href="/faq">FAQ</a>
+              </li>
+              <li class="nav-global">
+                <a href="/courses">Courses</a>
+              </li>
+              <li class="nav-global">
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Institutions
+                    <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        {% for each in organisation %}
+                            <li><a href="/en/{{each.short_name}}">{{each.long_name}}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+              </li>
+              
+
+        </ol>
+
+        <ol class="right nav-courseware list-inline">
+            
+              <li class="nav-global">
+                <a href="/register">Register</a>
+              </li>
+
+              <li class="nav-global">
+                <a class="btn btn-primary" href="/login">Sign In</a>
+              </li>
+            
+              <li class="nav-global">
+                <!--<form action="/i18n/setlang/" method="post" class="settings-language-form" id="language-settings-form">
+                    <input id="csrf_token" name="csrfmiddlewaretoken" value="7xU8kgVsZbd0OnFbGSFwvHUkIDoVhjpU" type="hidden">
+                      <input title="session update url" class="url-endpoint" value="/lang_pref/session_language" data-user-is-authenticated="false" type="hidden">
+                    <label><span class="sr-only">Choisir la langue</span>
+                          <select class="input select language-selector" id="settings-language-value" name="language">
+                            <option value="en">English</option>
+                            <option value="fr" selected="selected">Français</option>
+                      </select>
+                    </label>
+                </form>-->
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">&#x1F310;
+                    <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                       <li><a href="/fr">Français</a></li>
+                       <li><a href="/en">English</a></li>
+                    </ul>
+                </div>
+              </li>
+
+        </ol>
+            </nav>
+          </header>
+    
+    <!-- 
+    
+    
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                {# <a class="navbar-brand" href="{% url 'index' %}">EDUlib</a> #}
+                <a class="navbar-brand" href="{{ EDULIB_CATALOG }}">
+                <img src="/static/catalog/images/edulib.png" width="75px"/>
+                </a>
+            </div>
+            <div class="container2">
+                    <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Institutions
+                    <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                       <li><a href="/umontreal">UMontreal</a></li>
+                       <li><a href="/hec">HEC</a></li>
+                       <li><a href="/polymtl">PolyMtl</a></li>
+                    </ul>
+                    </div>
+            </div>
+        </div>
+    </nav>-->
+{# navigation bar from boostrap #}
+
+    
+    <div class="content-wrapper main-container" id="content">
+        <main id="main" aria-label="Content" tabindex="-1">
+

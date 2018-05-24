@@ -15,7 +15,7 @@
 
                 {% if course_upcoming %}
                 <!--<section class="courses">-->
-                        <h2>À venir</h2>
+                        <h2>Upcoming</h2>
                         <ul class="courses-listing">
 
                 {% for each in course_upcoming %}
@@ -24,13 +24,13 @@
                                     <a href="{{each.courseURL}}">
                                         <header class="course-image">
                                                 <img alt="{{ each.title }}" src="{{ each.image_src }}" />
-                                                <div class="learn-more" aria-hidden=true>EN SAVOIR PLUS</div>
+                                                <div class="learn-more" aria-hidden=true>KNOW MORE</div>
                                         </header>
                                         <ul class="course-info">
                                                 <li class="course-organization">{{ each.owner_print}}</li>
                                                 <li class="course-code">{{ each.course_print }}</li>
                                                 <li class="course-title">{{ each.title }}</li>
-                                                <li class="course-date localized_datetime">Commence le <time itemprop="startDate" datetime="{{ each.start_print }}">{{ each.start_print }}</time></li>
+                                                <li class="course-date localized_datetime">Starts <time itemprop="startDate" datetime="{{ each.start_print }}">{{ each.start_print }}</time></li>
                                         </ul>
                                     </a>
                                 </article>
@@ -45,7 +45,7 @@
 
                 {% if course_current %}
                 <!--<section class="courses">-->
-                        <h2>En cours</h2>
+                        <h2>Current</h2>
                         <ul class="courses-listing">
 
                 {% for each in course_current %}
@@ -54,13 +54,13 @@
                                     <a href="{{each.courseURL}}">
                                         <header class="course-image">
                                                 <img alt="{{ each.title }}" src="{{ each.image_src }}" />
-                                                <div class="learn-more" aria-hidden=true>EN SAVOIR PLUS</div>
+                                                <div class="learn-more" aria-hidden=true>KNOW MORE</div>
                                         </header>
                                         <ul class="course-info">
                                                 <li class="course-organization">{{ each.owner_print}}</li>
                                                 <li class="course-code">{{ each.course_print }}</li>
                                                 <li class="course-title">{{ each.title }}</li>
-                                                <li class="course-date localized_datetime">A commencé le <time itemprop="startDate" datetime="{{ each.start_print }}">{{ each.start_print }}</time></li>
+                                                <li class="course-date localized_datetime">Started <time itemprop="startDate" datetime="{{ each.start_print }}">{{ each.start_print }}</time></li>
                                         </ul>
                                     </a>
                                 </article>
@@ -75,7 +75,7 @@
 
                 {% if course_past %}
                 <!--<section class="courses">-->
-                        <h2>En archive</h2>
+                        <h2>Completed</h2>
                         <ul class="courses-listing">
 
                 {% for each in course_past %}
@@ -84,13 +84,13 @@
                                     <a href="{{each.courseURL}}">
                                         <header class="course-image">
                                                 <img alt="{{ each.title }}" src="{{ each.image_src }}" />
-                                                <div class="learn-more" aria-hidden=true>EN SAVOIR PLUS</div>
+                                                <div class="learn-more" aria-hidden=true>KNOW MORE</div>
                                         </header>
                                         <ul class="course-info">
                                                 <li class="course-organization">{{ each.owner_print}}</li>
                                                 <li class="course-code">{{ each.course_print }}</li>
                                                 <li class="course-title">{{ each.title }}</li>
-                                                <li class="course-date localized_datetime">A fini le <time itemprop="endDate" datetime="{{ each.end_print }}">{{ each.end_print }}</time></li>
+                                                <li class="course-date localized_datetime">Ended <time itemprop="startDate" datetime="{{ each.start_print }}">{{ each.start_print }}</time></li>
                                         </ul>
                                     </a>
                                 </article>
@@ -102,4 +102,4 @@
                 {% endif %}
             </section>
         </section>
-{% include "catalog/footer.html" %}
+{% include "catalog/footer_en.html" %}
