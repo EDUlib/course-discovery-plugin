@@ -24,6 +24,12 @@ header nav.navbar h1 img {
 
 header nav.navbar div.dropdown button {text-transform: uppercase;}
 
+header nav.navbar div.dropdown .dropdown-item.disabled{
+    color: #636c72;
+    background-color: transparent;
+    pointer-events: none;
+}
+
 header nav.navbar ol.right {
     
     float: right;

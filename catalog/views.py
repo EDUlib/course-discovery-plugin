@@ -7,7 +7,7 @@ import locale
 import requests
 import dateutil.parser
 
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.conf import settings
 from django.http import HttpResponse, Http404
 from .models import Organisation, CourseURL
@@ -78,7 +78,7 @@ def organisation(request, org_name, lang, index):
     try:
         org_obj = Organisation.objects.get(short_name = org_name.lower())
     except:
-        return render(request, 'catalog/unknown.html')
+        return redirect('/')
     
     #Initial setup
     auth = (settings.EDULIB_USER, settings.EDULIB_PWD)

@@ -26,7 +26,7 @@
     <nav class="navbar navbar-default">
       
         <h1 class="logo-header">
-            <a href="/en">
+            <a href="/home/en">
                 <img src="/static/catalog/images/edulib.png" alt="EDUlib Home Page" />
             </a>
         </h1>
@@ -48,7 +48,7 @@
                     <span class="caret"></span></button>
                     <ul class="dropdown-menu">
                         {% for each in organisation %}
-                            <li><a href="/en/{{each.short_name}}">{{each.long_name}}</a></li>
+                            <li><a href="/{{each.short_name}}/en">{{each.long_name}}</a></li>
                         {% endfor %}
                     </ul>
                 </div>
@@ -82,8 +82,8 @@
                     <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">&#x1F310;
                     <span class="caret"></span></button>
                     <ul class="dropdown-menu">
-                       <li><a href="/fr">Français</a></li>
-                       <li><a href="/en">English</a></li>
+                        <li><a class="dropdown-item" href="./fr">Français</a></li>
+                        <li><a class="dropdown-item disabled" href="./en">English</a></li>
                     </ul>
                 </div>
               </li>
